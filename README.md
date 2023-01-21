@@ -1,35 +1,47 @@
-# Marketplace Text and Image Classifier
+# Marketplace Text and Image Multi-Modal Classifier
 
-A multi-modal text and image classifier that mimics the process behind facebook marketplace for identifying the category of product images uploaded by the user and descriptions given.
+A multi-modal text and image classifier inspired by the search function of Facebook Marketplace for identifying the category of product images uploaded by the user and descriptions given.
 <br/>
 Use-case: A customer would search the marketplace for an item and the model will return the closest matching items.
+<br/>
+The classifier was trained on a dataset of over 12,500 images and more than 7,000 rows of text data.
 
 ## Demo
 
 ![demo](https://github.com/abuhasan12/Facebook-Marketplace-s-Recommendation-Ranking-System/blob/main/demo/Demo.gif)
 
-## Docker
+## Try it yourself!
 
-To run:
+* If you have cloned the repo, ensure you add the repository to the python path:
 ```Command Line
-$ docker run --name ml-container -p 8080:8080 abuh12/fb-mp-ml
+$ export PYTHON PATH="path/to/repo"
 ```
-<br/>
+* From inside the repo on your terminal run:
+```Command Line
+$ python app/api.py
+```
+* Navigate to localhost:8080/docs in your browser.
 
-To test:
-<br/>
-Navigate to [host]:8080/docs
-<br/>
-e.g. localhost:8080/docs
-<br/>
-<br/>
+* Remember to stop your terminal.
 
-To stop:
+## Try it yourself! - Docker
+
+* Run:
+```Command Line
+$ docker run --name [CHOSEN_CONTAINER_NAME] -p 8080:8080 abuh12/fb-mp-ml
+```
+* Navigate to localhost:8080/docs in your browser.
+
+* Stop:
 ```Command Line
 $ docker stop [CHOSEN_CONTAINER_NAME]
 ```
 
-## The Model
+## Data Preparation
+
+Before training the classifier, some data preparation was done to resize the images and clean the text data using NLTK and BERT.
+
+## Model
 
 The model is composed of layers of a text classifier and an image classifier.
 <br/>
@@ -46,6 +58,9 @@ Then the final layers of each classifiers are concatenated for the combined mode
 ## Build
 
 Building the classifiers were done using Pytorch.
+
+## API
+The classifier can be tested using the FastAPI and Uvicorn for the APIs. Test files have been provided to test the image classifier, text classifier, and the combined classifier.
 
 ### Getting Familiar with CNN Architecture
 
@@ -189,7 +204,3 @@ For the image classifier, the images needed to be first converted to multi-dimen
 Combining these arrays with Images.csv and Products.csv, the arrays could be mapped to their categories. All other columns were dropped.
 <br/>
 The image arrays were flattened and scaled before fitting to the KNN model by SKLearn (using GridSearchCV to fine-tune the hyper-parameters).
-
-#### Evaluation
-
-As mentioned above, the accuracy scores of both models were really bad due to the complexity of the data. The true purpose of this project was to explore deep neural networks for the use-case.
